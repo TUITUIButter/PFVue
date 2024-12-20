@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>人脸库</h1>
-    <p>人脸库来源于FFHQ与VGGFaceHQ的共一万两千张人脸图像。</p>
+    <p>人脸库来源于FFHQ与VGGFaceHQ的共一万两千张人脸图像。在两个数据集上，分别随机选择了1000对相同身份的人脸对和2000对不同身份的人脸对进行人脸隐私保护操作与识别验证。</p>
       <div class="image-grid">
         <div v-for="(image, index) in paginatedImages" :key="index" class="image-item">
           <img :src="image" @click="viewImage(image)" />
