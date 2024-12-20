@@ -28,7 +28,7 @@
           </el-menu>
         </el-aside>
 
-        <el-main>
+        <el-main class="main-content">
           <!-- 根据选中的菜单显示不同的组件 -->
           <FaceLibrary v-if="activeMenu === '1'" />
           <FaceAnalysis v-if="activeMenu === '2'" />
@@ -77,6 +77,7 @@ body {
 
 .common-layout {
   height: 100vh;
+  overflow: hidden;
   /* 使布局充满整个视口 */
 }
 
@@ -86,7 +87,7 @@ body {
 }
 
 .custom-header {
-  background-color: rgb(16, 56, 135);
+  background-color: #8b0012;
   /* 自定义背景颜色 */
   color: rgb(255, 255, 255);
   /* 自定义字体颜色 */
@@ -130,4 +131,11 @@ body {
   border-radius: 6px; /* 悬停项也加上圆角 */  
 }  
 
+.main-content {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px; /* 缩小上方边距 */
+  padding-top: 15px;
+  overflow-y: auto; /* 仅在主内容区域启用垂直滚动条 */
+}
 </style>

@@ -1,19 +1,25 @@
 <template>
   <div>
-    <h1>人脸库</h1>
-    <p>人脸库来源于FFHQ与VGGFaceHQ的共一万两千张人脸图像。在两个数据集上，分别随机选择了1000对相同身份的人脸对和2000对不同身份的人脸对进行人脸隐私保护操作与识别验证。</p>
-      <div class="image-grid">
-        <div v-for="(image, index) in paginatedImages" :key="index" class="image-item">
-          <img :src="image" @click="viewImage(image)" />
-        </div>
+    <h1 class="title">人脸库</h1>
+    <div class="top-section">
+      <p>人脸库来源于FFHQ与VGGFaceHQ的共一万两千张人脸图像。在两个数据集上，分别随机选择了1000对相同身份的人脸对和2000对不同身份的人脸对进行人脸隐私保护操作与识别验证。</p>
+    </div>
+    <div class="image-grid">
+      <div v-for="(image, index) in paginatedImages" :key="index" class="image-item">
+        <img :src="image" @click="viewImage(image)" />
       </div>
+    </div>
     <div class="pagination">
       <div class="pagination-controls">
         <button @click="prevPage" :disabled="currentPage === 1">
-          <el-icon><ArrowLeftBold /></el-icon>
+          <el-icon>
+            <ArrowLeftBold />
+          </el-icon>
         </button>
         <button @click="nextPage" :disabled="currentPage === totalPages">
-          <el-icon><ArrowRightBold /></el-icon>
+          <el-icon>
+            <ArrowRightBold />
+          </el-icon>
         </button>
       </div>
       <span class="page-info">{{ currentPage }} / {{ totalPages }}</span> <!-- 显示页数信息 -->
@@ -77,15 +83,31 @@ const nextPage = () => {
 </script>
 
 <style scoped>
+.title {
+  font-size: 24px;
+  margin-bottom: 0px;
+  /* 增大文字大小 */
+}
+
+.top-section {
+  font-size: 18px;
+  font-family: 'Times New Roman', 'Microsoft YaHei';
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 更改为5列 */
+  grid-template-columns: repeat(5, 1fr);
+  /* 更改为5列 */
   gap: 10px;
 }
 
 .image-item img {
   width: 100%;
-  height: 100%; /* 保持宽高比 */
+  height: 100%;
+  /* 保持宽高比 */
   /* max-height: 150px; 限制图像高度 */
   cursor: pointer;
 }
@@ -101,20 +123,24 @@ const nextPage = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1; /* 使其占据可用空间 */
+  flex-grow: 1;
+  /* 使其占据可用空间 */
 }
 
 .pagination button {
   background: none;
   border: none;
-  font-size: 1.5em; /* 增加图标大小 */
+  font-size: 1.5em;
+  /* 增加图标大小 */
   cursor: pointer;
-  margin: 0 10px; /* 增加箭头之间的间距 */
+  margin: 0 10px;
+  /* 增加箭头之间的间距 */
 }
 
 .pagination .page-info {
   font-size: 1.1em;
-  margin-left: auto; /* 将页数信息推到最右侧 */
+  margin-left: auto;
+  /* 将页数信息推到最右侧 */
 }
 
 .modal {
@@ -134,11 +160,16 @@ const nextPage = () => {
   max-height: 90%;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s;
 }
 
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active in <2.1.8 */
+  {
   opacity: 0;
 }
 </style>
