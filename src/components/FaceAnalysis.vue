@@ -41,9 +41,9 @@
             <p>结果</p>
             <img src="/cam/p2_res.jpg" alt="结果" class="responsive-image">
           </div>
-          <div v-if="uploadSuccess" class="image-container">
+          <div v-if="uploadSuccess" class="chart-container">
             <p>数据</p>
-            <ScoreChart :chartData="data"/>
+            <ScoreChart :chartData="data" class="chart"/>
           </div>
         </div>
         <el-button v-if="uploadSuccess" class="clear-button" @click="clearUpload">清除</el-button>
@@ -71,9 +71,9 @@
             <p>结果</p>
             <img src="/cam/p2_res.jpg" alt="结果" class="responsive-image">
           </div>
-          <div class="image-container">
+          <div class="chart-container">
             <p>数据</p>
-            <ScoreChart :chartData="data"/>
+            <ScoreChart :chartData="data" class="chart"/>
           </div>
         </div>
 
@@ -90,8 +90,8 @@
           <div class="image-container">
             <img src="/cam/p1_res.jpg" alt="结果" class="responsive-image">
           </div>
-          <div class="image-container">
-            <ScoreChart :chartData="data"/>
+          <div class="chart-container">
+            <ScoreChart :chartData="data" class="chart"/>
           </div>
         </div>
       </div>
@@ -214,65 +214,77 @@ const data = ref([
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 0 20px;
-  margin-left: 8%;
-  margin-right: 8%;
-}
+  /* padding-bottom: 20px; */
+  margin-left: 50px;
+  margin-right: 50px; 
 
-/* .divider {
-  margin: 20px
-} */
+  /* width: 100%; */
+}
 
 .row {
   display: flex;
+  align-items: stretch; /* 子元素高度一致 */
   justify-content: space-between;
   gap: 10px;
+  width: 100%;
+  /* height: 100%; */
 }
 
 .single-row {
   display: flex;
+  align-items: stretch; /* 子元素高度一致 */
   justify-content: center;
   gap: 10px;
+  width: 100%;
+  /* height: 100%; */
 }
 
 .image-container {
   font-size: 20px;
   font-family: 'Microsoft YaHei';
   text-align: center;
+  width: 15%;
+  /* height: 100%; */
 }
 
-.responsive-image, .avatar{
-  width: 300px;
-  height: 300px;
+.chart-container {
+  font-size: 20px;
+  font-family: 'Microsoft YaHei';
+  text-align: center;
+  width: 30%;
+  flex: auto; /* 自动与其他子元素高度保持一致 */
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+}
+
+.responsive-image{
+  width: 100%;
+  height: auto;
   max-width: 300px;
   max-height: 300px;
   object-fit: cover;
 }
 
-.clear-button {
-  margin-top: 0px;
-  /* align-self: center; */
-  background-color: #8b0012;
-  border-color: #8b0012;
-  color: white;
-}
-</style>
+.avatar-uploader{
+  width: 100%;
+  /* height: auto; */
+  max-width: 300px;
+  max-height: 300px;
+  aspect-ratio: 1 / 1; /* 宽高比为1:1 */
 
-
-<style>
-.avatar-uploader .el-upload {
   border: 2px dashed var(--el-border-color);
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition: var(--el-transition-duration-fast);
-  width: 300px;
-  height: 300px;
-}
 
-.avatar-uploader .el-upload:hover {
-  border-color: var(--el-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;    /* 垂直居中 */
+
+  box-sizing: border-box; /* 让border算入宽度和高度 */
 }
 
 .el-icon.avatar-uploader-icon {
@@ -284,5 +296,27 @@ const data = ref([
   max-height: 300px;
   text-align: center;
   line-height: 300px;
+  
+}
+
+.clear-button {
+  margin-top: 0px;
+  /* align-self: center; */
+  background-color: #8b0012;
+  border-color: #8b0012;
+  color: white;
+}
+
+.chart{
+  width: 100%;
+  /* height: 100%; */
+  min-width: 200px;
+  min-height: 100px;
+  /* max-width: 800px;
+  max-height: 500px; */
+
+  margin-left: 30px;
+  padding-right: 30px;
+  flex-grow: 1; /* 占据父控件剩余的全部高度 */
 }
 </style>
