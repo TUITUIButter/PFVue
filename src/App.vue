@@ -17,7 +17,7 @@
               <el-icon>
                 <histogram />
               </el-icon>
-              <span>人脸评估</span>
+              <span>人脸属性</span>
             </el-menu-item>
             <el-menu-item index="4" class="menu-item">
               <el-icon>
@@ -55,7 +55,7 @@ import {
 import { ref } from 'vue'
 import FaceLibrary from './components/FaceLibrary.vue'
 import FaceAnalysis from './components/FaceAnalysis.vue'
-import FaceEvaluation from './components/FaceEvaluation.vue'
+import FaceEvaluation from './components/FaceAttribute.vue'
 import PrivacyEditor from './components/PrivacyEditor.vue'
 
 
