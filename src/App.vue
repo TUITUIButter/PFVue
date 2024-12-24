@@ -21,6 +21,12 @@
             </el-menu-item>
             <el-menu-item index="4" class="menu-item">
               <el-icon>
+                <histogram />
+              </el-icon>
+              <span>人脸匹配</span>
+            </el-menu-item>
+            <el-menu-item index="5" class="menu-item">
+              <el-icon>
                 <icon-switch />
               </el-icon>
               <span>隐私编辑</span>
@@ -33,7 +39,8 @@
           <FaceLibrary v-if="activeMenu === '1'" />
           <FaceAnalysis v-if="activeMenu === '2'" />
           <FaceEvaluation v-if="activeMenu === '3'" />
-          <PrivacyEditor v-if="activeMenu === '4'" />
+          <FaceDistance v-if="activeMenu === '4'" />
+          <PrivacyEditor v-if="activeMenu === '5'" />
         </el-main>
       </el-container>
     </el-container>
@@ -56,6 +63,7 @@ import { ref } from 'vue'
 import FaceLibrary from './components/FaceLibrary.vue'
 import FaceAnalysis from './components/FaceAnalysis.vue'
 import FaceEvaluation from './components/FaceAttribute.vue'
+import FaceDistance from './components/FaceDistance.vue'
 import PrivacyEditor from './components/PrivacyEditor.vue'
 
 

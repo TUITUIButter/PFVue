@@ -43,7 +43,7 @@
           </div>
           <div v-if="uploadSuccess" class="chart-container">
             <p>数据</p>
-            <ScoreChart :chartData="data" class="chart"/>
+            <ChartScore :chartData="data" class="chart"/>
           </div>
         </div>
         <el-button v-if="uploadSuccess" class="clear-button" @click="clearUpload">清除</el-button>
@@ -73,7 +73,7 @@
           </div>
           <div class="chart-container">
             <p>数据</p>
-            <ScoreChart :chartData="data" class="chart"/>
+            <ChartScore :chartData="data" class="chart"/>
           </div>
         </div>
 
@@ -91,7 +91,7 @@
             <img src="/cam/p1_res.jpg" alt="结果" class="responsive-image">
           </div>
           <div class="chart-container">
-            <ScoreChart :chartData="data" class="chart"/>
+            <ChartScore :chartData="data" class="chart"/>
           </div>
         </div>
       </div>
@@ -110,7 +110,7 @@ import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
-import ScoreChart from './ScoreChart.vue'
+import ChartScore from './ChartScore.vue'
 
 const ak = ref('');
 ak.value = katex.renderToString('\\alpha_k^c = \\frac{1}{Z} \\sum_i \\sum_j \\frac{\\partial y^c}{\\partial A_{ij}^k}', {

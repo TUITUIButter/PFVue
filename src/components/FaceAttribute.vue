@@ -16,7 +16,7 @@
           </div>
           <div v-if="uploadSuccess" class="chart-container">
             <p>数据</p>
-            <AttrChart :chartData="data" class="chart"/>
+            <ChartAttribute :chartData="data" class="chart"/>
           </div>
         </div>
         <el-button v-if="uploadSuccess" class="clear-button" @click="clearUpload">清除</el-button>
@@ -34,7 +34,7 @@
           </div>
           <div class="chart-container">
             <p>数据</p>
-            <AttrChart :chartData="data" class="chart"/>
+            <ChartAttribute :chartData="data" class="chart"/>
           </div>
         </div>
 
@@ -43,7 +43,7 @@
             <img src="/cam/p1_ori.jpg" alt="原始图像" class="responsive-image">
           </div>
           <div class="chart-container">
-            <AttrChart :chartData="data" class="chart"/>
+            <ChartAttribute :chartData="data" class="chart"/>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
-import AttrChart from './AttrChart.vue'
+import ChartAttribute from './ChartAttribute.vue'
 
 const imageUrl = ref('')
 const uploadSuccess = ref(true)
