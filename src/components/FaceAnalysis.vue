@@ -253,6 +253,7 @@ const data = ref([
   font-family: 'Microsoft YaHei';
   text-align: center;
   width: 30%;
+  padding-left: 10px;
   flex: auto; /* 自动与其他子元素高度保持一致 */
   /* height: 100%; */
   display: flex;
@@ -316,8 +317,8 @@ const data = ref([
   /* max-width: 800px;
   max-height: 500px; */
 
-  margin-left: 30px;
-  padding-right: 30px;
+  padding-left: 0;
+  margin-right: 0;
   flex-grow: 1; /* 占据父控件剩余的全部高度 */
 }
 </style>

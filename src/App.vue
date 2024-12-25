@@ -89,11 +89,6 @@ body {
   /* 使布局充满整个视口 */
 }
 
-.el-container {
-  height: 100%;
-  /* overflow: hidden; */
-  /* 确保el-container也占满高度 */
-}
 
 .custom-header {
   background-color: #8b0012;
@@ -147,7 +142,6 @@ body {
 
 .main-content {
   overflow: auto; /* 仅在主内容区域启用垂直滚动条 */
-  margin: 0 0;
   padding: 10px 20px 20px 15px;
   height: 100%;
 }
