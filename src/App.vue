@@ -3,7 +3,7 @@
     <el-container style="height: 100%;">
       <el-header class="custom-header">人脸隐私保护系统演示</el-header>
       <el-container>
-        <el-aside width="250px">
+        <el-aside width="12%">
           <el-menu :default-active="activeMenu" @select="handleMenuSelect" class="custom-menu">
             <el-menu-item index="1" class="menu-item">
               <el-icon><files /></el-icon>
@@ -40,7 +40,7 @@
           <FaceAnalysis v-if="activeMenu === '2'" />
           <FaceEvaluation v-if="activeMenu === '3'" />
           <FaceDistance v-if="activeMenu === '4'" />
-          <PrivacyEditor v-if="activeMenu === '5'" />
+          <FacePrivacy v-if="activeMenu === '5'" />
         </el-main>
       </el-container>
     </el-container>
@@ -64,7 +64,7 @@ import FaceLibrary from './components/FaceLibrary.vue'
 import FaceAnalysis from './components/FaceAnalysis.vue'
 import FaceEvaluation from './components/FaceAttribute.vue'
 import FaceDistance from './components/FaceDistance.vue'
-import PrivacyEditor from './components/PrivacyEditor.vue'
+import FacePrivacy from './components/FacePrivacy.vue'
 
 
 const activeMenu = ref('1') // 设置默认选中的菜单项
@@ -91,6 +91,7 @@ body {
 
 .el-container {
   height: 100%;
+  /* overflow: hidden; */
   /* 确保el-container也占满高度 */
 }
 
@@ -111,7 +112,7 @@ body {
 
 /* 菜单项样式 */  
 .menu-item {  
-  margin-bottom: 6px; /* 设置每个菜单项之间的间隔 */
+  margin-bottom: 5px; /* 设置每个菜单项之间的间隔 */
   font-size: 16px;
   font-family: 'Microsoft YaHei';
 }  
@@ -124,6 +125,7 @@ body {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 3px;
+  overflow: hidden;
 }
 
 /* 选中项和悬停项的颜色可以单独设置 */  

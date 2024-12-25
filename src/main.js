@@ -1,5 +1,10 @@
 import 'element-plus/dist/index.css'
 import "@/assets/text/text.css";
+
+import katex from 'katex' // https://katex.org/docs
+import renderMathInElement from 'katex/contrib/auto-render/auto-render.js'
+import 'katex/dist/katex.min.css';
+
 import ElementPlus from 'element-plus'
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -16,4 +21,5 @@ app.component('e-charts', Echarts)
 app.config.globalProperties.$echarts = echarts
 
 app.use(ElementPlus)
+app.use(katex)
 app.mount('#app')

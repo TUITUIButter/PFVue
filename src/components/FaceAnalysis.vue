@@ -186,8 +186,8 @@ const data = ref([
 }
 
 .description {
-  width: 25%;
-  font-size: 20px;
+  width: 30%;
+  font-size: 16px;
   font-family: 'Times New Roman', 'Microsoft YaHei';
   line-height: 1.5;
   margin-left: 10px;
@@ -201,8 +201,8 @@ const data = ref([
   font-family: 'Cambria Math', 'Microsoft YaHei';
   display: block;
   text-align: center;
-  font-size: 19px;
-  margin: 5px 0;
+  font-size: 16px;
+  margin: 3px 0;
 }
 
 .right-image {
