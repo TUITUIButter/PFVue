@@ -2,7 +2,7 @@
   <div class="common-layout">
     <el-container style="height: 100%;">
       <el-header class="custom-header">人脸隐私保护系统演示</el-header>
-      <el-container>
+      <el-container class="custom-down">
         <el-aside width="12%">
           <el-menu :default-active="activeMenu" @select="handleMenuSelect" class="custom-menu">
             <el-menu-item index="1" class="menu-item">
@@ -110,6 +110,10 @@ body {
   height: 70px;
 }
 
+.custom-down{
+  height: calc(100% - 70px);
+}
+
 /* 菜单项样式 */  
 .menu-item {  
   margin-bottom: 5px; /* 设置每个菜单项之间的间隔 */
@@ -142,10 +146,9 @@ body {
 }  
 
 .main-content {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0px; /* 缩小上方边距 */
-  padding-top: 15px;
-  overflow-y: auto; /* 仅在主内容区域启用垂直滚动条 */
+  overflow: auto; /* 仅在主内容区域启用垂直滚动条 */
+  margin: 0 0;
+  padding: 10px 20px 20px 15px;
+  height: 100%;
 }
 </style>

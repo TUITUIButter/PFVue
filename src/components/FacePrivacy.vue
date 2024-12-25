@@ -1,7 +1,7 @@
 <template>
   <div class="face-evaluation">
     <h1 class="title">面部元素对身份识别影响优先级</h1>
-    <div class="top-imgage">
+    <div class="top-img">
       <img src="/framework.jpg" alt="框架图" class="framework-image">
     </div>
 
@@ -10,7 +10,22 @@
     </el-divider>
 
     <div class="loss-function">
-      <div class="latex" v-html="score"></div>
+      <div class="latex">
+        $$\mathcal{L}_{appr}=\|\min \left(P_{skin}\left(I_o\right)-P_{attr}\left(I_p\right),0\right)\odot (I_p-I_o) \|_2^2 $$
+      </div>
+      <div class="latex">
+        $$\mathcal{L}_{attr}=\frac{1}{K_{attr}} \sum_{k=1}^{K_{attr}}D_{KL} (C_{k}(I_p),L_t^k ) $$
+      </div>
+      <div class="latex">
+        $$\mathcal{L}_{ID}=\triangle_{\cos}(R(I_p),R(I_o)) $$
+      </div>
+      <div class="latex">
+        $$\mathcal{L}_{mask}= \|\max \left(P_{attr}\left(I_o\right)+P_{attr}\left(I_p\right),1\right)-P_{attr}(I_p) \|_2^2 $$
+      </div>
+
+      <div class="latex">
+        $$\mathcal{L}_{total}=\lambda_{appr} \mathcal{L}_{appr}+\lambda_{attr} \mathcal{L}_{attr}+ \lambda_{ID} \mathcal{L}_{ID}+\lambda_{mask} \mathcal{L}_{mask} $$
+      </div>
     </div>
 
     <el-divider>
@@ -20,7 +35,7 @@
     <div class="content">
       <div class="privacy-edit">
         <div class="image-container">
-          <p>上传用户图像</p>
+          <p>上传待隐私编辑图像</p>
           <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
             :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
@@ -36,7 +51,7 @@
         </div>
 
         <div class="image-container">
-          <p>上传用户图像</p>
+          <p>上传匹配图像</p>
           <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
             :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
@@ -54,22 +69,20 @@
 
 <script lang="ts" setup>
 import { StarFilled } from '@element-plus/icons-vue'
-import { ref } from 'vue';
-
-import katex from "katex"
-
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
+import { onMounted, ref } from 'vue';
+
 const imageUrl = ref('')
 const uploadSuccess = ref(false)
 
-const score = ref('');
-score.value = katex.renderToString('S_{Grad-CAM}^c = ReLU\\left(\\sum_k \\alpha_k^c A^k\\right)', {
-  throwOnError: false
+onMounted(() => {
+  setTimeout(() => {
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  }, 100);
 });
-
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
@@ -94,31 +107,33 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
 <style scoped>
 .face-evaluation {
-  /* display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+}
 
-  width: 100%; */
-  margin-bottom: 100px;
-  /* overflow-y: hidden; */
+.latex {
+  height: auto;
+  width: 100%;
+  font-size: 0.8em;
 }
 
 .title {
   font-size: 24px;
   /* 增大文字大小 */
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
-.top-imgage {
+.top-img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  margin: 0 10%;
+  height: auto;
 }
 
 .framework-image {
-  width: 80%;
+  width: 100%;
   height: auto;
-  margin-top: 30px;
 }
 
 .content {
@@ -126,29 +141,18 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
+  margin: 0 auto;
 }
 
 .loss-function {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
-  height: 100px;
-  gap: 8%;
-
-  overflow: hidden;
-}
-
-.latex {
-  font-family: 'Cambria Math', 'Microsoft YaHei';
-  display: block;
-  text-align: center;
-  font-size: 16px;
-  margin: 3px 0;
-  overflow: hidden;
-  max-height: 100%;
+  width: 100%;
+  height: auto;
+  /* gap: 8%; */
 }
 
 .privacy-edit {
@@ -205,6 +209,4 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   /* max-width: 600px; */
   width: 75%;
 }
-
-
 </style>

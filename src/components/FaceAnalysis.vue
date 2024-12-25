@@ -7,11 +7,15 @@
           我们首先计算卷积层在 softmax 之前的特征激活图 <i>A<sup>k</sup></i> 的类别 <i>c</i> 的梯度分数 <i>y <sup>c</sup></i>。
           通过对反向传播梯度的宽度和高度进行全局平均池化，得到重要性权重 <i>α<sub>k</sub><sup>c</sup></i>：
         </p>
-        <div class="latex" v-html="ak"></div>
+        <div class="latex">
+          $$ \alpha_k^c = \frac{1}{Z} \sum_i \sum_j \frac{\partial y^c}{\partial A_{ij}^k} $$
+        </div>
         <p>
           最终的 CAM 图像通过加权求和得到：
         </p>
-        <div class="latex" v-html="score"></div>
+        <div class="latex">
+          $$ S_{Grad-CAM}^c = ReLU\left(\sum_k \alpha_k^c A^k\right) $$
+        </div>
       </div>
       <img src="/cam/part1.png" alt="框架图" class="right-image">
     </div>
@@ -103,26 +107,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import 'katex/dist/katex.min.css';
-import katex from 'katex';
+import { ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
 import ChartScore from './ChartScore.vue'
 
-const ak = ref('');
-ak.value = katex.renderToString('\\alpha_k^c = \\frac{1}{Z} \\sum_i \\sum_j \\frac{\\partial y^c}{\\partial A_{ij}^k}', {
-  throwOnError: false
-});
-const score = ref('');
-score.value = katex.renderToString('S_{Grad-CAM}^c = ReLU\\left(\\sum_k \\alpha_k^c A^k\\right)', {
-  throwOnError: false
+
+onMounted(() => {
+  setTimeout(() => {
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  }, 100);
 });
 
 const imageUrl = ref('')
 const uploadSuccess = ref(true)
+
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
@@ -159,7 +160,7 @@ const data = ref([
 
 <style scoped>
 .face-evaluation {
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 .center-image {
@@ -202,7 +203,7 @@ const data = ref([
   display: block;
   text-align: center;
   font-size: 16px;
-  margin: 3px 0;
+  margin: 0 0;
 }
 
 .right-image {

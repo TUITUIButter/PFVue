@@ -83,6 +83,12 @@ const nextPage = () => {
 </script>
 
 <style scoped>
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .title {
   font-size: 24px;
   margin-bottom: 0px;
@@ -169,7 +175,7 @@ const nextPage = () => {
 .fade-leave-to
 
 /* .fade-leave-active in <2.1.8 */
-  {
+{
   opacity: 0;
 }
 </style>

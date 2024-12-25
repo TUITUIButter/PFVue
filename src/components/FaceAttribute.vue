@@ -106,7 +106,7 @@ const data = ref([
 
 <style scoped>
 .face-evaluation {
-  margin-bottom: 100px;
+  margin-bottom: 10px;
 }
 
 .center-image {
