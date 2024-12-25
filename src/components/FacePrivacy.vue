@@ -1,6 +1,6 @@
 <template>
   <div class="face-evaluation">
-    <h1 class="title">面部元素对身份识别影响优先级</h1>
+    <h1 class="title">完整隐私编辑Pipline</h1>
     <div class="top-img">
       <img src="/framework.jpg" alt="框架图" class="framework-image">
     </div>
