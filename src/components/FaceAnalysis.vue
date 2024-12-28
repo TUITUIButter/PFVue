@@ -25,8 +25,9 @@
         <div class="row" :class="{ 'single-row': !uploadSuccess }">
           <div class="image-container">
             <p>上传用户图像</p>
-            <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-              :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <el-upload class="avatar-uploader" action="http://127.0.0.1:5000/cam_image"
+              :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
+              :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
               <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
               <el-icon v-else class="avatar-uploader-icon">
                 <Plus />
@@ -35,15 +36,15 @@
           </div>
           <div v-if="uploadSuccess" class="image-container">
             <p>人脸解析器结果</p>
-            <img src="/cam/p2_parse.jpg" alt="人脸解析器结果" class="responsive-image">
+            <img :src="parsedFaceImgUrl" alt="人脸解析器结果" class="responsive-image">
           </div>
           <div v-if="uploadSuccess" class="image-container">
             <p>CAM图像</p>
-            <img src="/cam/p2_cam.jpg" alt="CAM图像" class="responsive-image">
+            <img :src="camImgUrl" alt="CAM图像" class="responsive-image">
           </div>
           <div v-if="uploadSuccess" class="image-container">
             <p>结果</p>
-            <img src="/cam/p2_res.jpg" alt="结果" class="responsive-image">
+            <img :src="resultImgUrl" alt="结果" class="responsive-image">
           </div>
           <div v-if="uploadSuccess" class="chart-container">
             <p>数据</p>
@@ -77,7 +78,7 @@
           </div>
           <div class="chart-container">
             <p>数据</p>
-            <ChartScore :chartData="data" class="chart"/>
+            <ChartScore :chartData="data_example_1" class="chart"/>
           </div>
         </div>
 
@@ -95,7 +96,7 @@
             <img src="/cam/p1_res.jpg" alt="结果" class="responsive-image">
           </div>
           <div class="chart-container">
-            <ChartScore :chartData="data" class="chart"/>
+            <ChartScore :chartData="data_example_2" class="chart"/>
           </div>
         </div>
       </div>
@@ -113,7 +114,7 @@ import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
 import ChartScore from './ChartScore.vue'
-
+import axios from 'axios';
 
 onMounted(() => {
   setTimeout(() => {
@@ -121,23 +122,50 @@ onMounted(() => {
   }, 100);
 });
 
+// const baseUrl= process.env.VUE_APP_BASE_URL;
+// console.log(process.env.VUE_APP_BASE_URL);
 const imageUrl = ref('')
-const uploadSuccess = ref(true)
+const uploadSuccess = ref(false)
+const parsedFaceImgUrl = ref('')
+const camImgUrl = ref('')
+const resultImgUrl = ref('')
 
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
+const handleAvatarSuccess: UploadProps['onSuccess'] = async (
   response,
   uploadFile
 ) => {
   imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+  try {
+    const parsedFaceResponse = await axios.get('/static/processed/parsed_face_img.jpg', { responseType: 'blob' });
+    parsedFaceImgUrl.value = URL.createObjectURL(parsedFaceResponse.data);
+
+    const camResponse = await axios.get('/static/processed/visualization_all.jpg', { responseType: 'blob' });
+    camImgUrl.value = URL.createObjectURL(camResponse.data);
+
+    const resultResponse = await axios.get('/static/processed/visualization.jpg', { responseType: 'blob' });
+    resultImgUrl.value = URL.createObjectURL(resultResponse.data);
+
+    // 更新 data
+    data.value = [
+      { name: 'Hair', value: response.hair },
+      { name: 'Eyebrows', value: response.eyebrows },
+      { name: 'Eyes', value: response.eyes },
+      { name: 'Mouth', value: response.mouth },
+      { name: 'Nose', value: response.nose },
+    ];
+  } catch (error) {
+    ElMessage.error('获取图像失败');
+  }
+
   uploadSuccess.value = true
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
+  if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/jpg' && rawFile.type !== 'image/png') {
+    ElMessage.error('Avatar picture must be JPG/JPEG/PNG format!')
     return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+  } else if (rawFile.size / 1024 / 1024 > 10) {
+    ElMessage.error('Avatar picture size can not exceed 10MB!')
     return false
   }
   return true
@@ -146,9 +174,28 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 const clearUpload = () => {
   imageUrl.value = ''
   uploadSuccess.value = false
+  parsedFaceImgUrl.value = ''
+  camImgUrl.value = ''
+  resultImgUrl.value = ''
 }
 
 const data = ref([
+  { name: 'Hair', value: 120 },
+  { name: 'Eyebrows', value: 200 },
+  { name: 'Eyes', value: 150 },
+  { name: 'Mouth', value: 80 },
+  { name: 'Nose', value: 70 },
+]);
+
+const data_example_1 = ref([
+  { name: 'Hair', value: 120 },
+  { name: 'Eyebrows', value: 200 },
+  { name: 'Eyes', value: 150 },
+  { name: 'Mouth', value: 80 },
+  { name: 'Nose', value: 70 },
+]);
+
+const data_example_2 = ref([
   { name: 'Hair', value: 120 },
   { name: 'Eyebrows', value: 200 },
   { name: 'Eyes', value: 150 },

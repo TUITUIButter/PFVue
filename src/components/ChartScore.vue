@@ -77,7 +77,9 @@ onMounted(async () => {
         label: {
           show: true, // 显示标签
           position: 'right', // 标签位置在顶部
-          formatter: '{c}', // 自定义显示的内容，{c}是指当前数据点的值
+          formatter: function (params) {
+            return params.value.toFixed(2); // 自定义显示的内容，只显示两位小数
+          },
         },
       }],
 
