@@ -25,7 +25,7 @@
         <div class="row" :class="{ 'single-row': !uploadSuccess }">
           <div class="image-container">
             <p>上传用户图像</p>
-            <el-upload class="avatar-uploader" action="http://127.0.0.1:5000/cam_image"
+            <el-upload class="avatar-uploader" action="/api/cam_image"
               :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
               :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
               <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
@@ -136,13 +136,13 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = async (
 ) => {
   imageUrl.value = URL.createObjectURL(uploadFile.raw!)
   try {
-    const parsedFaceResponse = await axios.get('/static/processed/parsed_face_img.jpg', { responseType: 'blob' });
+    const parsedFaceResponse = await axios.get('/api/static/processed/parsed_face_img.jpg', { responseType: 'blob' });
     parsedFaceImgUrl.value = URL.createObjectURL(parsedFaceResponse.data);
 
-    const camResponse = await axios.get('/static/processed/visualization_all.jpg', { responseType: 'blob' });
+    const camResponse = await axios.get('/api/static/processed/visualization_all.jpg', { responseType: 'blob' });
     camImgUrl.value = URL.createObjectURL(camResponse.data);
 
-    const resultResponse = await axios.get('/static/processed/visualization.jpg', { responseType: 'blob' });
+    const resultResponse = await axios.get('/api/static/processed/visualization.jpg', { responseType: 'blob' });
     resultImgUrl.value = URL.createObjectURL(resultResponse.data);
 
     // 更新 data

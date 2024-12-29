@@ -6,8 +6,9 @@
         <div class="row" :class="{ 'single-row': !uploadSuccess }">
           <div class="image-container">
             <p>上传用户图像</p>
-            <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-              :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+            <el-upload class="avatar-uploader" action="/api/attr"
+              :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload"
+              :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
               <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
               <el-icon v-else class="avatar-uploader-icon">
                 <Plus />
@@ -63,21 +64,36 @@ import type { UploadProps } from 'element-plus'
 import ChartAttribute from './ChartAttribute.vue'
 
 const imageUrl = ref('')
-const uploadSuccess = ref(true)
+const uploadSuccess = ref(false)
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
   imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+  // 更新 data
+  data.value = [
+    { name: 'Male', value: response.male },
+    { name: 'Young', value: response.young },
+    { name: 'Arched_Eyebrows', value: response.arched_eyebrows },
+    { name: 'Bushy_Eyebrows', value: response.bushy_eyebrows },
+    { name: 'Wavy_Hair', value: response.wavy_hair },
+    { name: 'Straight_Hair', value: response.straight_hair },
+    { name: 'Big_Nose', value: response.big_nose },
+    { name: 'Pointy_Nose', value: response.pointy_nose },
+    { name: 'Big_Lips', value: response.big_lips },
+    { name: 'Narrow_Eyes', value: response.narrow_eyes },
+    { name: 'Bags_Under_Eyes', value: response.bags_under_eyes },
+  ];
+
   uploadSuccess.value = true
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
+  if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/jpg' && rawFile.type !== 'image/png') {
+    ElMessage.error('Avatar picture must be JPG/JPEG/PNG format!')
     return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+  } else if (rawFile.size / 1024 / 1024 > 10) {
+    ElMessage.error('Avatar picture size can not exceed 10MB!')
     return false
   }
   return true

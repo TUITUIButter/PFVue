@@ -15,9 +15,10 @@
           <div class="images-up">
             <div class="image-container">
               <p>上传图像</p>
-              <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
+              <el-upload class="avatar-uploader" action="/api/upload_a"
+                :show-file-list="false" :on-success="handleAvatarSuccess_a" :before-upload="beforeAvatarUpload"
+                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
+                <img v-if="imageUrl_a" :src="imageUrl_a" class="responsive-image" />
                 <el-icon v-else class="avatar-uploader-icon">
                   <Plus />
                 </el-icon>
@@ -25,16 +26,17 @@
             </div>
             <div class="image-container">
               <p>上传图像</p>
-              <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
+              <el-upload class="avatar-uploader" action="/api/upload_b"
+                :show-file-list="false" :on-success="handleAvatarSuccess_b" :before-upload="beforeAvatarUpload"
+                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
+                <img v-if="imageUrl_b" :src="imageUrl_b" class="responsive-image" />
                 <el-icon v-else class="avatar-uploader-icon">
                   <Plus />
                 </el-icon>
               </el-upload>
             </div>
           </div>
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="70" color="#8b0012" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage * 100" color="#8b0012" :format="formatPercentage" />
         </div>
 
         <div class="image-progress">
@@ -49,7 +51,7 @@
               <img src="/cam/p2_ori.jpg" alt="示例图像" class="responsive-image">
             </div>
           </div>
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="70" color="#8b0012" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" percentage="69" color="#8b0012" :format="formatPercentage" />
         </div>
       </div>
 
@@ -60,8 +62,8 @@
       <div class="search">
         <div class="image-container">
           <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-            :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="responsive-image" />
+            :show-file-list="false" :on-success="handleAvatarSuccess_c" :before-upload="beforeAvatarUpload">
+            <img v-if="imageUrl_c" :src="imageUrl_c" class="responsive-image" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
             </el-icon>
@@ -71,15 +73,15 @@
 
         <div class="image-container">
           <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="70" color="#8b0012" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l1 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
         <div class="image-container">
           <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="70" color="#8b0012" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l2 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
         <div class="image-container">
           <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="70" color="#8b0012" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l3 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
 
       </div>
@@ -92,26 +94,64 @@ import { ref } from 'vue';
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
+import axios from 'axios';
 
-const imageUrl = ref('/cam/p2_ori.jpg')
-const uploadSuccess = ref(true)
-const handleAvatarSuccess: UploadProps['onSuccess'] = (
+const imageUrl_a = ref('')
+const imageUrl_b = ref('')
+const imageUrl_c = ref('')
+const percentage = ref(0.0)
+
+const percentage_l1 = ref(0.8)
+const percentage_l2 = ref(0.765)
+const percentage_l3 = ref(0.354)
+
+const handleAvatarSuccess_a: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
-  imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-  uploadSuccess.value = true
+  imageUrl_a.value = URL.createObjectURL(uploadFile.raw!)
+  get_dis()
+}
+
+const handleAvatarSuccess_b: UploadProps['onSuccess'] = (
+  response,
+  uploadFile
+) => {
+  imageUrl_b.value = URL.createObjectURL(uploadFile.raw!)
+  get_dis()
+}
+
+const handleAvatarSuccess_c: UploadProps['onSuccess'] = (
+  response,
+  uploadFile
+) => {
+  imageUrl_c.value = URL.createObjectURL(uploadFile.raw!)
+}
+
+function get_dis() {
+  if (imageUrl_a.value === '' || imageUrl_b.value === '') {
+    return
+  }
+  
+  axios.get('/api/cos_dis').then((res) => {
+    console.log(res.data.cos_dis)
+    percentage.value = res.data.cos_dis
+  })
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('Avatar picture must be JPG format!')
+  if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/jpg' && rawFile.type !== 'image/png') {
+    ElMessage.error('Avatar picture must be JPG/JPEG/PNG format!')
     return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
+  } else if (rawFile.size / 1024 / 1024 > 10) {
+    ElMessage.error('Avatar picture size can not exceed 10MB!')
     return false
   }
   return true
+}
+
+function formatPercentage(percentage: number) {
+  return (percentage / 100).toFixed(2);
 }
 
 </script>
