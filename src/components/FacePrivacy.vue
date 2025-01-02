@@ -127,7 +127,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 10%;
+  margin: 0 15%;
   height: auto;
 }
 

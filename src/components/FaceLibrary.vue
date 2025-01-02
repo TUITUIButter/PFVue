@@ -33,20 +33,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import {
   ArrowRightBold,
   ArrowLeftBold
 } from '@element-plus/icons-vue'
 
-const imagePath_1 = '/people.jpg'; // 使用相对路径
-const imagePath_2 = '/draw.jpg'; // 使用相对路径
-const imagePaths_1 = Array(15).fill(imagePath_1); // 生成包含 10 个相同元素的数组
-const imagePaths_2 = Array(15).fill(imagePath_2); // 生成包含 10 个相同元素的数组
-const imagePaths = imagePaths_1.concat(imagePaths_2); // 合并两个数组
-// 打乱数组顺序
-imagePaths.sort(() => Math.random() - 0.5);
-const images = ref<string[]>(imagePaths);
+// const imagePath_1 = '/people.jpg'; // 使用相对路径
+// const imagePath_2 = '/draw.jpg'; // 使用相对路径
+// const imagePaths_1 = Array(15).fill(imagePath_1); // 生成包含 10 个相同元素的数组
+// const imagePaths_2 = Array(15).fill(imagePath_2); // 生成包含 10 个相同元素的数组
+// const imagePaths = imagePaths_1.concat(imagePaths_2); // 合并两个数组
+
+// // 打乱数组顺序
+// imagePaths.sort(() => Math.random() - 0.5);
+
+const images = ref([]);  
+
+// 使用组合式 API 生成图像名称  
+for (let i = 1; i <= 50; i++) {  
+  // 格式化图像名称为三位数格式  
+  const imageName = '/lib/' + String(i).padStart(3, '0') + '.jpg';
+  images.value.push(imageName);  
+  console.log(imageName);
+}
+
+// const images = ref<string[]>(imagePaths);
 
 const currentPage = ref(1);
 const itemsPerPage = 10;

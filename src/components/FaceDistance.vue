@@ -43,15 +43,15 @@
           <div class="images-up">
             <div class="image-container">
               <p>示例图像</p>
-              <img src="/cam/p2_ori.jpg" alt="示例图像" class="responsive-image">
+              <img src="/dis/pair1.jpg" alt="示例图像" class="responsive-image">
             </div>
 
             <div class="image-container">
               <p>示例图像</p>
-              <img src="/cam/p2_ori.jpg" alt="示例图像" class="responsive-image">
+              <img src="/dis/pair2.jpg" alt="示例图像" class="responsive-image">
             </div>
           </div>
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" percentage="69" color="#8b0012" :format="formatPercentage" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" percentage="94" color="#8b0012" :format="formatPercentage" />
         </div>
       </div>
 
@@ -61,8 +61,9 @@
 
       <div class="search">
         <div class="image-container">
-          <el-upload class="avatar-uploader" action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-            :show-file-list="false" :on-success="handleAvatarSuccess_c" :before-upload="beforeAvatarUpload">
+          <el-upload class="avatar-uploader" action="/api/lib_search"
+            :show-file-list="false" :on-success="handleAvatarSuccess_c" :before-upload="beforeAvatarUpload"
+            :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
             <img v-if="imageUrl_c" :src="imageUrl_c" class="responsive-image" />
             <el-icon v-else class="avatar-uploader-icon">
               <Plus />
@@ -72,15 +73,15 @@
         </div>
 
         <div class="image-container">
-          <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
+          <img :src="searchFace1" alt="原始图像" class="responsive-image">
           <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l1 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
         <div class="image-container">
-          <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
+          <img :src="searchFace2" alt="原始图像" class="responsive-image">
           <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l2 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
         <div class="image-container">
-          <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
+          <img :src="searchFace3" alt="原始图像" class="responsive-image">
           <el-progress class="progress" :text-inside="true" :stroke-width="26" :percentage="percentage_l3 * 100" color="#8b0012" :format="formatPercentage" />
         </div>
 
@@ -98,12 +99,16 @@ import axios from 'axios';
 
 const imageUrl_a = ref('')
 const imageUrl_b = ref('')
-const imageUrl_c = ref('')
+const imageUrl_c = ref('/dis/ori.jpg')
 const percentage = ref(0.0)
 
-const percentage_l1 = ref(0.8)
-const percentage_l2 = ref(0.765)
-const percentage_l3 = ref(0.354)
+const percentage_l1 = ref(0.89)
+const percentage_l2 = ref(0.56)
+const percentage_l3 = ref(0.50)
+
+const searchFace1 = ref('/dis/search1.jpg')
+const searchFace2 = ref('/dis/search2.jpg')
+const searchFace3 = ref('/dis/search3.jpg')
 
 const handleAvatarSuccess_a: UploadProps['onSuccess'] = (
   response,
@@ -121,11 +126,26 @@ const handleAvatarSuccess_b: UploadProps['onSuccess'] = (
   get_dis()
 }
 
-const handleAvatarSuccess_c: UploadProps['onSuccess'] = (
+const handleAvatarSuccess_c: UploadProps['onSuccess'] = async (
   response,
   uploadFile
 ) => {
+  const scores = response.scores
+  // console.log(scores)
+  percentage_l1.value = scores[1]
+  percentage_l2.value = scores[2]
+  percentage_l3.value = scores[3]
+
   imageUrl_c.value = URL.createObjectURL(uploadFile.raw!)
+
+  const searchFace1Response = await axios.get('/api/static/processed/search_1.jpg', { responseType: 'blob' });
+  searchFace1.value = URL.createObjectURL(searchFace1Response.data);
+
+  const searchFace2Response = await axios.get('/api/static/processed/search_2.jpg', { responseType: 'blob' });
+  searchFace2.value = URL.createObjectURL(searchFace2Response.data);
+
+  const searchFace3Response = await axios.get('/api/static/processed/search_3.jpg', { responseType: 'blob' });
+  searchFace3.value = URL.createObjectURL(searchFace3Response.data);
 }
 
 function get_dis() {

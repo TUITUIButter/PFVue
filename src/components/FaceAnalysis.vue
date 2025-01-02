@@ -188,19 +188,19 @@ const data = ref([
 ]);
 
 const data_example_1 = ref([
-  { name: 'Hair', value: 120 },
-  { name: 'Eyebrows', value: 200 },
-  { name: 'Eyes', value: 150 },
-  { name: 'Mouth', value: 80 },
-  { name: 'Nose', value: 70 },
+  { name: 'Hair', value: 0.03 },
+  { name: 'Eyebrows', value: 0.16 },
+  { name: 'Eyes', value: 0.20 },
+  { name: 'Mouth', value: 0.32 },
+  { name: 'Nose', value: 0.28 },
 ]);
 
 const data_example_2 = ref([
-  { name: 'Hair', value: 120 },
-  { name: 'Eyebrows', value: 200 },
-  { name: 'Eyes', value: 150 },
-  { name: 'Mouth', value: 80 },
-  { name: 'Nose', value: 70 },
+  { name: 'Hair', value: 0.08 },
+  { name: 'Eyebrows', value: 0.16 },
+  { name: 'Eyes', value: 0.21 },
+  { name: 'Mouth', value: 0.27 },
+  { name: 'Nose', value: 0.28 },
 ]);
 
 </script>

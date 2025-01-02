@@ -36,7 +36,7 @@ onMounted(async () => {
         nameGap: 5,
         data: props.chartData.map(item => item.name), // 这里将数据移到 x 轴  
         axisLine: {
-          show: false, // 不显示横坐标轴线  
+          show: true, // 不显示横坐标轴线  
         },
         axisTick: {
           show: false, // 不显示刻度线  
@@ -70,7 +70,8 @@ onMounted(async () => {
         itemStyle: {
           borderRadius: [5, 5, 0, 0], // 只有顶部圆角  
           color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [ // 设置渐变色，方向调整为纵向  
-            { offset: 0, color: '#f3e6e7' },
+            // { offset: 0, color: '#f3e6e7' },
+            { offset: 0, color: '#8b0012' },
             { offset: 1, color: '#8b0012' },
           ]),
         },

@@ -31,11 +31,11 @@
         <div class="row">
           <div class="image-container">
             <p>原始图像</p>
-            <img src="/cam/p2_ori.jpg" alt="原始图像" class="responsive-image">
+            <img src="/attr/ex1.jpg" alt="原始图像" class="responsive-image">
           </div>
           <div class="chart-container">
             <p>数据</p>
-            <ChartAttribute :chartData="data" class="chart"/>
+            <ChartAttribute :chartData="data_example_1" class="chart"/>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
             <img src="/cam/p1_ori.jpg" alt="原始图像" class="responsive-image">
           </div>
           <div class="chart-container">
-            <ChartAttribute :chartData="data" class="chart"/>
+            <ChartAttribute :chartData="data_example_2" class="chart"/>
           </div>
         </div>
       </div>
@@ -116,6 +116,34 @@ const data = ref([
   { name: 'Big_Lips', value: 0.5 },
   { name: 'Narrow_Eyes', value: 0.8 },
   { name: 'Bags_Under_Eyes', value: 0.2 },
+]);
+
+const data_example_1 = ref([
+  { name: 'Male', value: 1.0 },
+  { name: 'Young', value: 0.05 },
+  { name: 'Arched_Eyebrows', value: 0.05 },
+  { name: 'Bushy_Eyebrows', value: 0.42 },
+  { name: 'Wavy_Hair', value: 0.01 },
+  { name: 'Straight_Hair', value: 0.07 },
+  { name: 'Big_Nose', value: 0.60 },
+  { name: 'Pointy_Nose', value: 0.23 },
+  { name: 'Big_Lips', value: 0.01 },
+  { name: 'Narrow_Eyes', value: 0.01 },
+  { name: 'Bags_Under_Eyes', value: 0.27 },
+]);
+
+const data_example_2 = ref([
+  { name: 'Male', value: 0.00 },
+  { name: 'Young', value: 1.0 },
+  { name: 'Arched_Eyebrows', value: 0.59 },
+  { name: 'Bushy_Eyebrows', value: 0.01 },
+  { name: 'Wavy_Hair', value: 0.07 },
+  { name: 'Straight_Hair', value: 0.74 },
+  { name: 'Big_Nose', value: 0.26 },
+  { name: 'Pointy_Nose', value: 0.06 },
+  { name: 'Big_Lips', value: 0.39 },
+  { name: 'Narrow_Eyes', value: 0.77 },
+  { name: 'Bags_Under_Eyes', value: 0.45 },
 ]);
 
 </script>

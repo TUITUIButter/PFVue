@@ -16,14 +16,12 @@ export default defineConfig({
     },
   },
   server: {
+    open: true,
     proxy: {  
       '/api': {  
         target: 'http://localhost:5000',  
         changeOrigin: true, // 使虚拟托管的站点服务工作  
       },
     }
-  },
-  devServer: {
-    open: true,
   },
 })
