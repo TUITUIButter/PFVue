@@ -55,7 +55,7 @@ for (let i = 1; i <= 50; i++) {
   // 格式化图像名称为三位数格式  
   const imageName = '/lib/' + String(i).padStart(3, '0') + '.jpg';
   images.value.push(imageName);  
-  console.log(imageName);
+  // console.log(imageName);
 }
 
 // const images = ref<string[]>(imagePaths);

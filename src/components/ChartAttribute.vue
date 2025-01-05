@@ -46,6 +46,8 @@ onMounted(async () => {
         },
         axisLabel: {
           interval: 0, // 强制显示所有标签  
+          rotate: -22, // 文字45度倾斜
+          margin: 10, // 调整文字的偏移量
         },
       },
       yAxis: {

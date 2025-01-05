@@ -15,9 +15,10 @@
           <div class="images-up">
             <div class="image-container">
               <p>上传图像</p>
-              <el-upload class="avatar-uploader" action="/api/upload_a"
+              <el-upload class="avatar-uploader" action="/api/upload"
                 :show-file-list="false" :on-success="handleAvatarSuccess_a" :before-upload="beforeAvatarUpload"
-                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
+                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image"
+                :data="{ imageName: 'image_a.jpg'}">
                 <img v-if="imageUrl_a" :src="imageUrl_a" class="responsive-image" />
                 <el-icon v-else class="avatar-uploader-icon">
                   <Plus />
@@ -26,9 +27,10 @@
             </div>
             <div class="image-container">
               <p>上传图像</p>
-              <el-upload class="avatar-uploader" action="/api/upload_b"
+              <el-upload class="avatar-uploader" action="/api/upload"
                 :show-file-list="false" :on-success="handleAvatarSuccess_b" :before-upload="beforeAvatarUpload"
-                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image" >
+                :auto-upload="true" accept=".jpg, .jpeg, .png" name="image"
+                :data="{ imageName: 'image_b.jpg'}" >
                 <img v-if="imageUrl_b" :src="imageUrl_b" class="responsive-image" />
                 <el-icon v-else class="avatar-uploader-icon">
                   <Plus />
@@ -153,7 +155,7 @@ function get_dis() {
     return
   }
   
-  axios.get('/api/cos_dis').then((res) => {
+  axios.get('/api/cos_dis?image_a=image_a.jpg&image_b=image_b.jpg').then((res) => {
     console.log(res.data.cos_dis)
     percentage.value = res.data.cos_dis
   })
