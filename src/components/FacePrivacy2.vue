@@ -2,7 +2,7 @@
   <div class="face-evaluation">
     <h1 class="title">完整隐私编辑Pipline</h1>
     <div class="top-img">
-      <img src="/framework.jpg" alt="框架图" class="framework-image">
+      <img src="/framework2.png" alt="框架图" class="framework-image">
     </div>
 
     <el-divider>
@@ -11,20 +11,20 @@
 
     <div class="loss-function">
       <div class="latex">
-        $$\mathcal{L}_{appr}=\|\min \left(P_{skin}\left(I_o\right)-P_{attr}\left(I_p\right),0\right)\odot (I_p-I_o) \|_2^2 $$
+        $$\mathbf{z}_0 = \mathbf{VAE_{Encoder}}(I_o) || \mathbf{VAE_{Encoder}}(I_{mask}) || Mask $$
       </div>
       <div class="latex">
-        $$\mathcal{L}_{attr}=\frac{1}{K_{attr}} \sum_{k=1}^{K_{attr}}D_{KL} (C_{k}(I_p),L_t^k ) $$
+        $$\mathbf{z}_t = \sqrt{\alpha_t} \mathbf{z}_{t-1} + \sqrt{1-\alpha_t}\epsilon, \epsilon \sim \mathcal{N}(0,1) $$
       </div>
       <div class="latex">
-        $$\mathcal{L}_{ID}=\triangle_{\cos}(R(I_p),R(I_o)) $$
+        $$\mathbf{z}_s = \sqrt{\overline{\alpha}_s}\mathbf{f}_{\theta}(\mathbf{z}_t,c,t)+  \sqrt{1 - \overline{\alpha} - \sigma^2_s}\mathbf{\epsilon}_{\theta}(\mathbf{z}_t,c,t)+\sigma_s\epsilon $$
       </div>
       <div class="latex">
-        $$\mathcal{L}_{mask}= \|\max \left(P_{attr}\left(I_o\right)+P_{attr}\left(I_p\right),1\right)-P_{attr}(I_p) \|_2^2 $$
+        $$\mathbf{f}_{\theta}(\mathbf{z}_t,c,t) = \frac{\mathbf{z}_t-\sqrt{1-\overline{\alpha}_t}\epsilon_\theta(\mathbf{z}_t,c,t)}{\sqrt{\overline{\alpha}_t}} $$
       </div>
 
       <div class="latex">
-        $$\mathcal{L}_{total}=\lambda_{appr} \mathcal{L}_{appr}+\lambda_{attr} \mathcal{L}_{attr}+ \lambda_{ID} \mathcal{L}_{ID}+\lambda_{mask} \mathcal{L}_{mask} $$
+        $$I_{p} = \mathbf{VAE_{Decoder}}({\mathbf{z}_0'}) $$
       </div>
     </div>
 
@@ -92,12 +92,12 @@ import type { UploadProps } from 'element-plus'
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 
-const imageUrl = ref('')
-const imageRes = ref('')
-const imageUrl_compare = ref('')
-const uploadSuccess = ref(false)
-const face_distance_1 = ref(0)
-const face_distance_2 = ref(0)
+const imageUrl = ref('/pipline/ori.png')
+const imageRes = ref('/pipline/res.png')
+const imageUrl_compare = ref('/pipline/compare.jpg')
+const uploadSuccess = ref(true)
+const face_distance_1 = ref(0.79)
+const face_distance_2 = ref(0.7)
 
 onMounted(() => {
   setTimeout(() => {

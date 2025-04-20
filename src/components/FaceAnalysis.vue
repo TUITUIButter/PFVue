@@ -235,7 +235,7 @@ const data_example_2 = ref([
 
 .description {
   width: 30%;
-  font-size: 16px;
+  font-size: 17px;
   font-family: 'Times New Roman', 'Microsoft YaHei';
   line-height: 1.5;
   margin-left: 10px;

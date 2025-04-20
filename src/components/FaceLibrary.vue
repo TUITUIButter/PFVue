@@ -2,7 +2,7 @@
   <div>
     <h1 class="title">人脸库</h1>
     <div class="top-section">
-      <p>人脸库来源于FFHQ与VGGFaceHQ的共一万两千张人脸图像。在两个数据集上，分别随机选择了1000对相同身份的人脸对和2000对不同身份的人脸对进行人脸隐私保护操作与识别验证。</p>
+      <p>人脸库来源于FFHQ与VGGFaceHQ的共12K张人脸图像。在两个数据集上，分别随机选择了1K对相同身份的人脸对和2K对不同身份的人脸对进行人脸隐私保护操作与识别验证。</p>
     </div>
     <div class="image-grid">
       <div v-for="(image, index) in paginatedImages" :key="index" class="image-item">
@@ -108,11 +108,12 @@ body {
 }
 
 .top-section {
-  font-size: 18px;
+  font-size: 20px;
   font-family: 'Times New Roman', 'Microsoft YaHei';
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  padding-right: 20px;
 }
 
 .image-grid {

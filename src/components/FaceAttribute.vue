@@ -31,7 +31,7 @@
         <div class="row">
           <div class="image-container">
             <p>原始图像</p>
-            <img src="/attr/ex1.jpg" alt="原始图像" class="responsive-image">
+            <img src="/attr/ex2.jpg" alt="原始图像" class="responsive-image">
           </div>
           <div class="chart-container">
             <p>数据</p>
@@ -41,7 +41,7 @@
 
         <div class="row">
           <div class="image-container">
-            <img src="/cam/p1_ori.jpg" alt="原始图像" class="responsive-image">
+            <img src="/attr/ex3.jpg" alt="原始图像" class="responsive-image">
           </div>
           <div class="chart-container">
             <ChartAttribute :chartData="data_example_2" class="chart"/>
@@ -105,45 +105,45 @@ const clearUpload = () => {
 }
 
 const data = ref([
-  { name: 'Male', value: 0.9 },
-  { name: 'Young', value: 0.8 },
-  { name: 'Arched_Eyebrows', value: 0.76 },
-  { name: 'Bushy_Eyebrows', value: 0.23 },
-  { name: 'Wavy_Hair', value: 0.2 },
-  { name: 'Straight_Hair', value: 0.80001 },
-  { name: 'Big_Nose', value: 0.01 },
-  { name: 'Pointy_Nose', value: 0.99 },
-  { name: 'Big_Lips', value: 0.5 },
-  { name: 'Narrow_Eyes', value: 0.8 },
-  { name: 'Bags_Under_Eyes', value: 0.2 },
-]);
-
-const data_example_1 = ref([
   { name: 'Male', value: 1.0 },
-  { name: 'Young', value: 0.05 },
-  { name: 'Arched_Eyebrows', value: 0.05 },
-  { name: 'Bushy_Eyebrows', value: 0.42 },
-  { name: 'Wavy_Hair', value: 0.01 },
-  { name: 'Straight_Hair', value: 0.07 },
-  { name: 'Big_Nose', value: 0.60 },
-  { name: 'Pointy_Nose', value: 0.23 },
-  { name: 'Big_Lips', value: 0.01 },
-  { name: 'Narrow_Eyes', value: 0.01 },
-  { name: 'Bags_Under_Eyes', value: 0.27 },
+  { name: 'Young', value: 0.77 },
+  { name: 'Arched_Eyebrows', value: 0.03 },
+  { name: 'Bushy_Eyebrows', value: 0.23 },
+  { name: 'Wavy_Hair', value: 0.0 },
+  { name: 'Straight_Hair', value: 0.83 },
+  { name: 'Big_Nose', value: 0.31 },
+  { name: 'Pointy_Nose', value: 0.15 },
+  { name: 'Big_Lips', value: 0.16 },
+  { name: 'Narrow_Eyes', value: 0.52 },
+  { name: 'Bags_Under_Eyes', value: 0.07 },
 ]);
 
 const data_example_2 = ref([
-  { name: 'Male', value: 0.00 },
+  { name: 'Male', value: 1.0 },
+  { name: 'Young', value: 0.77 },
+  { name: 'Arched_Eyebrows', value: 0.03 },
+  { name: 'Bushy_Eyebrows', value: 0.23 },
+  { name: 'Wavy_Hair', value: 0.0 },
+  { name: 'Straight_Hair', value: 0.83 },
+  { name: 'Big_Nose', value: 0.31 },
+  { name: 'Pointy_Nose', value: 0.15 },
+  { name: 'Big_Lips', value: 0.16 },
+  { name: 'Narrow_Eyes', value: 0.52 },
+  { name: 'Bags_Under_Eyes', value: 0.07 },
+]);
+
+const data_example_1 = ref([
+  { name: 'Male', value: 0.04 },
   { name: 'Young', value: 1.0 },
-  { name: 'Arched_Eyebrows', value: 0.59 },
-  { name: 'Bushy_Eyebrows', value: 0.01 },
-  { name: 'Wavy_Hair', value: 0.07 },
-  { name: 'Straight_Hair', value: 0.74 },
-  { name: 'Big_Nose', value: 0.26 },
-  { name: 'Pointy_Nose', value: 0.06 },
-  { name: 'Big_Lips', value: 0.39 },
-  { name: 'Narrow_Eyes', value: 0.77 },
-  { name: 'Bags_Under_Eyes', value: 0.45 },
+  { name: 'Arched_Eyebrows', value: 0.14 },
+  { name: 'Bushy_Eyebrows', value: 0.75 },
+  { name: 'Wavy_Hair', value: 0.08 },
+  { name: 'Straight_Hair', value: 0.62 },
+  { name: 'Big_Nose', value: 0.10 },
+  { name: 'Pointy_Nose', value: 0.13 },
+  { name: 'Big_Lips', value: 0.47 },
+  { name: 'Narrow_Eyes', value: 0.03 },
+  { name: 'Bags_Under_Eyes', value: 0.02 },
 ]);
 
 </script>

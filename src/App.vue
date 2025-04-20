@@ -29,7 +29,13 @@
               <el-icon>
                 <icon-switch />
               </el-icon>
-              <span>隐私编辑</span>
+              <span>GAN隐私增强</span>
+            </el-menu-item>
+            <el-menu-item index="6" class="menu-item">
+              <el-icon>
+                <icon-switch />
+              </el-icon>
+              <span>扩散隐私增强</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -41,6 +47,7 @@
           <FaceEvaluation v-if="activeMenu === '3'" />
           <FaceDistance v-if="activeMenu === '4'" />
           <FacePrivacy v-if="activeMenu === '5'" />
+          <FacePrivacy2 v-if="activeMenu === '6'" />
         </el-main>
       </el-container>
     </el-container>
@@ -65,6 +72,7 @@ import FaceAnalysis from './components/FaceAnalysis.vue'
 import FaceEvaluation from './components/FaceAttribute.vue'
 import FaceDistance from './components/FaceDistance.vue'
 import FacePrivacy from './components/FacePrivacy.vue'
+import FacePrivacy2 from './components/FacePrivacy2.vue'
 
 
 const activeMenu = ref('1') // 设置默认选中的菜单项

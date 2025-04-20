@@ -53,7 +53,7 @@
               <img src="/dis/pair2.jpg" alt="示例图像" class="responsive-image">
             </div>
           </div>
-          <el-progress class="progress" :text-inside="true" :stroke-width="26" percentage="94" color="#8b0012" :format="formatPercentage" />
+          <el-progress class="progress" :text-inside="true" :stroke-width="26" percentage="84" color="#8b0012" :format="formatPercentage" />
         </div>
       </div>
 
